@@ -18,7 +18,7 @@ public class Movement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         Controls();
     }
@@ -28,12 +28,16 @@ public class Movement : MonoBehaviour
        direction.x = Input.GetAxis("Horizontal");
        direction.z = Input.GetAxis("Vertical");
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space))
         {
             direction.y += upForce;
         }
+        if (Input.GetKey(KeyCode.P))
+        {
+           RG.velocity = new Vector3(0, -10f, 0);
+        }
 
-        RG.AddForce(direction * Time.deltaTime, ForceMode.Impulse);
-        RG.AddForce(Vector3.down);
+        RG.AddForce(direction , ForceMode.Acceleration);
+        direction.y = 0;
     }
 }
