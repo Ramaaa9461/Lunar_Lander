@@ -16,8 +16,6 @@ public class Movement : MonoBehaviour
     {
         
     }
-
-    // Update is called once per frame
     void FixedUpdate()
     {
         Controls();
@@ -28,13 +26,25 @@ public class Movement : MonoBehaviour
        direction.x = Input.GetAxis("Horizontal");
        direction.z = Input.GetAxis("Vertical");
 
+        if (direction.x < 0) //Se instancia el fuegoo
+        {
+
+        }
+        if (direction.x > 0)
+        {
+
+        }
+        if (direction.y < 0)
+        {
+
+        }
+        if (direction.y > 0)
+        {
+
+        }
         if (Input.GetKey(KeyCode.Space))
         {
             direction.y += upForce;
-        }
-        if (Input.GetKey(KeyCode.P))
-        {
-           RG.velocity = new Vector3(0, -10f, 0);
         }
 
         RG.AddForce(direction , ForceMode.Acceleration);

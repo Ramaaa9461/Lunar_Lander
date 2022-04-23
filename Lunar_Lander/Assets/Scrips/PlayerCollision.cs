@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerCollision : MonoBehaviour
 {
     Rigidbody RG;
-    [SerializeField] float maxVelocity = 4;
+    [SerializeField] float maxVelocity;
     void Awake()
     {
         RG = GetComponent<Rigidbody>();
@@ -20,15 +20,23 @@ public class PlayerCollision : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (RG.velocity.magnitude > maxVelocity)
+        {
+            Debug.Log("No explota" );
+        }
+        else
+        {
+            ShipExploited(collision.contacts[0].point);
+            Debug.Log("explota" );
+
+        }
 
 
-
-      //  ShipExploited(collision.contacts[0].point);
     }
 
 
     void ShipExploited(Vector3 explosionPoint)
     {
-     //   RG.AddExplosionForce(30f, explosionPoint, 30f,1f,ForceMode.Impulse);
+        RG.AddExplosionForce(3f, explosionPoint , 1f,1f,ForceMode.Impulse);
     }
 }
