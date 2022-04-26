@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerCollision : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class PlayerCollision : MonoBehaviour
     [SerializeField] GameObject explotionPrefab;
     GameObject explotion;
     [SerializeField] Canvas canvas;
-    [SerializeField] Canvas loseCanvas;
+    [SerializeField] Text finalText;
 
     void Awake()
     {
@@ -20,9 +21,9 @@ public class PlayerCollision : MonoBehaviour
     {
         if (RG.velocity.magnitude > maxVelocity)
         {
-            Debug.Log("No explota");
             if (collision.transform.gameObject.layer == 6)
             {
+                finalText.text = "You have Won!";
                 canvas.gameObject.SetActive(true);
                 Destroy(RG);
             }
@@ -30,7 +31,6 @@ public class PlayerCollision : MonoBehaviour
         else
         {
             ShipExploited(collision.contacts[0].point);
-            Debug.Log("explota");
         }
     }
 
@@ -40,7 +40,6 @@ public class PlayerCollision : MonoBehaviour
     {
         if (firstCollision)
         {
-
             for (int i = 0; i < gameObject.transform.childCount; i++)
             {
                 gameObject.transform.GetChild(i).gameObject.AddComponent<Rigidbody>();
@@ -56,7 +55,8 @@ public class PlayerCollision : MonoBehaviour
 
             firstCollision = false;
 
-            loseCanvas.gameObject.SetActive(true);
+            finalText.text = "You have Lost!";
+            canvas.gameObject.SetActive(true);
         }
     }
 }

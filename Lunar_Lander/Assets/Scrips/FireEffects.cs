@@ -13,8 +13,55 @@ public class FireEffects : MonoBehaviour
 
     void Start()
     {
-       // allEffectsStop();
+        allEffectsStop();
     }
+
+    public void rigthFire(KeyCode keyPrincipal, KeyCode keyAlternative)
+    {
+        if (Input.GetKeyDown(keyPrincipal) || Input.GetKey(keyAlternative))
+        {
+            RigthPlay();
+        }
+        else
+        {
+            RigthStop();
+        }
+    }
+    public void leftFire(KeyCode keyPrincipal, KeyCode keyAlternative)
+    {
+        if (Input.GetKeyDown(keyPrincipal) || Input.GetKey(keyAlternative))
+        {
+            LeftPlay();
+        }
+        else
+        {
+            LeftStop();
+        }
+    }
+    public void ForwardFire(KeyCode keyPrincipal, KeyCode keyAlternative)
+    {
+        if (Input.GetKeyDown(keyPrincipal) || Input.GetKey(keyAlternative))
+        {
+            ForwardPlay();
+        }
+        else
+        {
+            ForwardStop();
+        }
+    }
+    public void BackFire(KeyCode keyPrincipal, KeyCode keyAlternative)
+    {
+        if (Input.GetKeyDown(keyPrincipal) || Input.GetKey(keyAlternative))
+        {
+            BackPlay();
+        }
+        else
+        {
+            BackStop();
+        }
+    }
+
+
     public void UpPlay()
     {
         up.Play();
@@ -24,38 +71,38 @@ public class FireEffects : MonoBehaviour
         up.Stop();
     }
 
-    public void ForwardPlay()
+    void ForwardPlay()
     {
         forward.Play();
     }
-    public void ForwardStop()
+    void ForwardStop()
     {
         forward.Stop();
     }
 
-    public void BackPlay()
+    void BackPlay()
     {
         back.Play();
     }
-    public void BackStop()
+    void BackStop()
     {
         back.Stop();
     }
 
-    public void RigthPlay()
+    void RigthPlay()
     {
         rigth.Play();
     }
-    public void RigthStop()
-    { 
+    void RigthStop()
+    {
         rigth.Stop();
     }
 
-    public void LeftPlay()
+    void LeftPlay()
     {
         left.Play();
     }
-    public void LeftStop()
+    void LeftStop()
     {
         left.Stop();
     }

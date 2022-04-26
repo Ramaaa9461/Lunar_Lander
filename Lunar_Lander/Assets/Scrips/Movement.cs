@@ -20,12 +20,13 @@ public class Movement : MonoBehaviour
         if (!RG)
         {
             FireEffects.allEffectsPlay();
-            transform.Rotate(Vector3.up * speed);
+            transform.Rotate(Vector3.up * speed * Time.deltaTime);
         }
     }
     void FixedUpdate()
     {
         Controls();
+        EfectsFireInput();
     }
 
     void Controls()
@@ -33,41 +34,21 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
         {
             direction = transform.forward * speed;
-            FireEffects.ForwardPlay();
-        }
-        else
-        {
-            FireEffects.ForwardStop();
         }
 
         if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
         {
             direction = -transform.forward * speed;
-            FireEffects.BackPlay();
-        }
-        else
-        {
-            FireEffects.BackStop();
         }
 
         if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
         {
             direction = transform.right * speed;
-            FireEffects.RigthPlay();
-        }
-        else
-        {
-            FireEffects.RigthStop();
         }
 
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
             direction = -transform.right * speed;
-            FireEffects.LeftPlay();
-        }
-        else
-        {
-            FireEffects.LeftStop();
         }
 
         if (Input.GetKey(KeyCode.Space))
@@ -94,5 +75,14 @@ public class Movement : MonoBehaviour
 
         direction = Vector3.zero;
         rotation = Vector3.zero;
+    }
+
+    void EfectsFireInput()
+    {
+        FireEffects.BackFire(KeyCode.W, KeyCode.UpArrow);
+        FireEffects.ForwardFire(KeyCode.S, KeyCode.DownArrow);
+        FireEffects.leftFire(KeyCode.D, KeyCode.RightArrow);
+        FireEffects.rigthFire(KeyCode.A, KeyCode.LeftArrow);
+
     }
 }
