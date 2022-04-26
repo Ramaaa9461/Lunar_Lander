@@ -24,6 +24,7 @@ public class PlayerCollision : MonoBehaviour
             if (collision.transform.gameObject.layer == 6)
             {
                 canvas.gameObject.SetActive(true);
+                Destroy(RG);
             }
         }
         else

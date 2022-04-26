@@ -60,6 +60,15 @@ public class FireEffects : MonoBehaviour
         left.Stop();
     }
 
+
+    public void allEffectsPlay()
+    {
+        up.Play();
+        back.Play();
+        left.Play();
+        rigth.Play();
+        forward.Play();
+    }
     public void allEffectsStop()
     {
         up.Stop();

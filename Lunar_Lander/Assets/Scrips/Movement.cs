@@ -15,6 +15,14 @@ public class Movement : MonoBehaviour
     {
         RG = GetComponent<Rigidbody>();
     }
+    private void Update()
+    {
+        if (!RG)
+        {
+            FireEffects.allEffectsPlay();
+            transform.Rotate(Vector3.up * speed);
+        }
+    }
     void FixedUpdate()
     {
         Controls();
@@ -76,7 +84,7 @@ public class Movement : MonoBehaviour
         {
             rotation.y = -1;
         }
-        if (Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.Alpha0))
+        if (Input.GetKey(KeyCode.E) || Input.GetKey(KeyCode.Keypad0))
         {
             rotation.y = 1;
         }
