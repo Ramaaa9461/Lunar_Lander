@@ -8,6 +8,8 @@ public class PlayerCollision : MonoBehaviour
     [SerializeField] float maxVelocity;
     [SerializeField] GameObject explotionPrefab;
     GameObject explotion;
+    [SerializeField] Canvas canvas;
+    [SerializeField] Canvas loseCanvas;
 
     void Awake()
     {
@@ -19,6 +21,10 @@ public class PlayerCollision : MonoBehaviour
         if (RG.velocity.magnitude > maxVelocity)
         {
             Debug.Log("No explota");
+            if (collision.transform.gameObject.layer == 6)
+            {
+                canvas.gameObject.SetActive(true);
+            }
         }
         else
         {
@@ -45,9 +51,11 @@ public class PlayerCollision : MonoBehaviour
 
             Destroy(explotion, 2f);
 
-            Destroy(gameObject, 10f);
+            Destroy(gameObject, 5f);
 
             firstCollision = false;
+
+            loseCanvas.gameObject.SetActive(true);
         }
     }
 }
