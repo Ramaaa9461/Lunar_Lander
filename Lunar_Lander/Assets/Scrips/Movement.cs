@@ -5,16 +5,15 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     Vector3 direction = Vector3.zero;
+    Vector3 rotation = Vector3.zero;
     Rigidbody RG;
     [SerializeField] float upForce;
+    [SerializeField] FireEffects FireEffects;
 
+    float rotationVelocity = 5f;
     private void Awake()
     {
         RG = GetComponent<Rigidbody>();
-    }
-    void Start()
-    {
-        
     }
     void FixedUpdate()
     {
@@ -23,31 +22,23 @@ public class Movement : MonoBehaviour
 
     void Controls()
     {
-       direction.x = Input.GetAxis("Horizontal");
-       direction.z = Input.GetAxis("Vertical");
+        direction.x = Input.GetAxis("Horizontal");
+        direction.z = Input.GetAxis("Vertical");
 
-        if (direction.x < 0) //Se instancia el fuegoo
-        {
-
-        }
-        if (direction.x > 0)
-        {
-
-        }
-        if (direction.y < 0)
-        {
-
-        }
-        if (direction.y > 0)
-        {
-
-        }
         if (Input.GetKey(KeyCode.Space))
         {
             direction.y += upForce;
+            FireEffects.UpPlay();
+        }
+        else
+        {
+            FireEffects.UpStop();
         }
 
         RG.AddForce(direction , ForceMode.Acceleration);
-        direction.y = 0;
+        transform.Rotate(rotation);
+
+        direction = Vector3.zero;
+        rotation = Vector3.zero;
     }
 }

@@ -6,37 +6,48 @@ public class PlayerCollision : MonoBehaviour
 {
     Rigidbody RG;
     [SerializeField] float maxVelocity;
+    [SerializeField] GameObject explotionPrefab;
+    GameObject explotion;
+
     void Awake()
     {
         RG = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-
     private void OnCollisionEnter(Collision collision)
     {
         if (RG.velocity.magnitude > maxVelocity)
         {
-            Debug.Log("No explota" );
+            Debug.Log("No explota");
         }
         else
         {
             ShipExploited(collision.contacts[0].point);
-            Debug.Log("explota" );
-
+            Debug.Log("explota");
         }
-
-
     }
 
+    static bool firstCollision = true;
 
     void ShipExploited(Vector3 explosionPoint)
     {
-        RG.AddExplosionForce(3f, explosionPoint , 1f,1f,ForceMode.Impulse);
+        if (firstCollision)
+        {
+
+            for (int i = 0; i < gameObject.transform.childCount; i++)
+            {
+                gameObject.transform.GetChild(i).gameObject.AddComponent<Rigidbody>();
+            }
+
+            RG.AddExplosionForce(3f, explosionPoint, 2f, 1f, ForceMode.Impulse);
+
+            explotion =  Instantiate(explotionPrefab, explosionPoint, Quaternion.identity);
+
+            Destroy(explotion, 2f);
+
+            Destroy(gameObject, 10f);
+
+            firstCollision = false;
+        }
     }
 }
