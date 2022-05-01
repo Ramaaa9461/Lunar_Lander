@@ -22,7 +22,7 @@ public class FireEffects : MonoBehaviour
         {
             RigthPlay();
         }
-        else
+        if (Input.GetKeyUp(keyPrincipal) || Input.GetKey(keyAlternative))
         {
             RigthStop();
         }
@@ -33,7 +33,7 @@ public class FireEffects : MonoBehaviour
         {
             LeftPlay();
         }
-        else
+        if (Input.GetKeyUp(keyPrincipal) || Input.GetKey(keyAlternative))
         {
             LeftStop();
         }
@@ -44,7 +44,7 @@ public class FireEffects : MonoBehaviour
         {
             ForwardPlay();
         }
-        else
+        if (Input.GetKeyUp(keyPrincipal) || Input.GetKey(keyAlternative))
         {
             ForwardStop();
         }
@@ -55,7 +55,7 @@ public class FireEffects : MonoBehaviour
         {
             BackPlay();
         }
-        else
+        if (Input.GetKeyUp(keyPrincipal) || Input.GetKey(keyAlternative))
         {
             BackStop();
         }

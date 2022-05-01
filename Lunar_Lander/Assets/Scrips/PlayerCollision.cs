@@ -26,7 +26,7 @@ public class PlayerCollision : MonoBehaviour
                 finalText.text = "You have Won!";
                 canvas.gameObject.SetActive(true);
                 Destroy(RG);
-            }
+            }      
         }
         else
         {
@@ -47,7 +47,7 @@ public class PlayerCollision : MonoBehaviour
 
             RG.AddExplosionForce(3f, explosionPoint, 2f, 1f, ForceMode.Impulse);
 
-            explotion =  Instantiate(explotionPrefab, explosionPoint, Quaternion.identity);
+            explotion = Instantiate(explotionPrefab, explosionPoint, Quaternion.identity);
 
             Destroy(explotion, 2f);
 

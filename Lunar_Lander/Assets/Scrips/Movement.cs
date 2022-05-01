@@ -9,8 +9,9 @@ public class Movement : MonoBehaviour
     Rigidbody RG;
     [SerializeField] float upForce;
     [SerializeField] FireEffects FireEffects;
+    [SerializeField] FuelController FuelController;
 
-    [SerializeField] float speed = 5f;
+    float speed = 1f;
     private void Awake()
     {
         RG = GetComponent<Rigidbody>();
@@ -20,14 +21,15 @@ public class Movement : MonoBehaviour
         if (!RG)
         {
             FireEffects.allEffectsPlay();
-            transform.Rotate(Vector3.up * speed * Time.deltaTime);
+            transform.eulerAngles += (Vector3.up * 100 * Time.deltaTime);
         }
+        EfectsFireInput();
     }
     void FixedUpdate()
     {
         Controls();
-        EfectsFireInput();
     }
+
 
     void Controls()
     {
@@ -35,17 +37,14 @@ public class Movement : MonoBehaviour
         {
             direction = transform.forward * speed;
         }
-
         if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
         {
             direction = -transform.forward * speed;
         }
-
         if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
         {
             direction = transform.right * speed;
         }
-
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
             direction = -transform.right * speed;
@@ -70,8 +69,15 @@ public class Movement : MonoBehaviour
             rotation.y = 1;
         }
 
-        RG.AddForce(direction, ForceMode.Acceleration);
-        transform.Rotate(rotation);
+        if (FuelController.getCurrentFuel() > 0 && RG)
+        {
+            RG.AddForce(direction, ForceMode.Acceleration);
+            transform.Rotate(rotation);
+            if (direction != Vector3.zero)
+            {
+                FuelController.SpendFuel(0.05f);
+            }
+        }
 
         direction = Vector3.zero;
         rotation = Vector3.zero;

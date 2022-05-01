@@ -10,9 +10,11 @@ public class CameraMovement : MonoBehaviour
 
     void Update()
     {
-             
-            transform.position = ship.transform.position; 
-            transform.rotation = Quaternion.Euler(25, ship.transform.eulerAngles.y, 0); 
+        if (ship)
+        {
+            transform.position = ship.transform.position;
+            transform.rotation = Quaternion.Euler(25, ship.transform.eulerAngles.y, 0);
             transform.Translate(Vector3.forward * 2 + offSet, Space.Self);
+        }
     }
 }
