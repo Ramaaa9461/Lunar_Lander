@@ -19,14 +19,18 @@ public class PlayerCollision : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (RG.velocity.magnitude > maxVelocity)
+
+
+
+        if (collision.relativeVelocity.magnitude < maxVelocity)
         {
             if (collision.transform.gameObject.layer == 6)
             {
                 finalText.text = "You have Won!";
                 canvas.gameObject.SetActive(true);
                 Destroy(RG);
-            }      
+            }
+            Debug.Log("No exploto");
         }
         else
         {
@@ -38,25 +42,24 @@ public class PlayerCollision : MonoBehaviour
 
     void ShipExploited(Vector3 explosionPoint)
     {
-        if (firstCollision)
+        Debug.Log("explota", gameObject);
+
+        for (int i = 0; i < gameObject.transform.childCount; i++)
         {
-            for (int i = 0; i < gameObject.transform.childCount; i++)
-            {
-                gameObject.transform.GetChild(i).gameObject.AddComponent<Rigidbody>();
-            }
-
-            RG.AddExplosionForce(3f, explosionPoint, 2f, 1f, ForceMode.Impulse);
-
-            explotion = Instantiate(explotionPrefab, explosionPoint, Quaternion.identity);
-
-            Destroy(explotion, 2f);
-
-            Destroy(gameObject, 5f);
-
-            firstCollision = false;
-
-            finalText.text = "You have Lost!";
-            canvas.gameObject.SetActive(true);
+            gameObject.transform.GetChild(i).gameObject.AddComponent<Rigidbody>();
         }
+
+        RG.AddExplosionForce(3f, explosionPoint, 2f, 1f, ForceMode.Impulse);
+
+        explotion = Instantiate(explotionPrefab, explosionPoint, Quaternion.identity);
+
+        Destroy(explotion, 2f);
+
+        Destroy(gameObject, 5f);
+
+        firstCollision = false;
+
+        finalText.text = "You have Lost!";
+        canvas.gameObject.SetActive(true);
     }
 }

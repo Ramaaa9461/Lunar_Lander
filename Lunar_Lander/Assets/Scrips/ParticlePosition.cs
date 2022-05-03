@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ParticlePosition : MonoBehaviour
@@ -8,6 +6,6 @@ public class ParticlePosition : MonoBehaviour
 
     private void Update()
     {
-        transform.position = ship.position;
+        if(ship) transform.position = ship.position;
     }
 }
