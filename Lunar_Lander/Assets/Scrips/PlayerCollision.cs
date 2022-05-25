@@ -19,9 +19,6 @@ public class PlayerCollision : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-
-
-
         if (collision.relativeVelocity.magnitude < maxVelocity)
         {
             if (collision.transform.gameObject.layer == 6)
@@ -37,9 +34,6 @@ public class PlayerCollision : MonoBehaviour
             ShipExploited(collision.contacts[0].point);
         }
     }
-
-    static bool firstCollision = true;
-
     void ShipExploited(Vector3 explosionPoint)
     {
         Debug.Log("explota", gameObject);
@@ -57,9 +51,16 @@ public class PlayerCollision : MonoBehaviour
 
         Destroy(gameObject, 5f);
 
-        firstCollision = false;
-
         finalText.text = "You have Lost!";
         canvas.gameObject.SetActive(true);
     }
+
+    void Update()
+    {
+        if (transform.position.y < -10) 
+        {
+            ShipExploited(transform.position);
+        }
+    }
+
 }
